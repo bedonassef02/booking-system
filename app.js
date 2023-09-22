@@ -1,8 +1,12 @@
 const express = require('express');
 const morgan = require('morgan');
+const dotenv = require('dotenv');
 const globalExceptionFilter = require('./utils/filters/global-exception.filter');
 
 const app = express();
+
+
+dotenv.config()
 
 app.use(morgan('dev'));
 

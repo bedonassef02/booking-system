@@ -1,8 +1,4 @@
-const dotenv = require('dotenv');
-const morgan = require('morgan')
 const app = require('./app')
-
-dotenv.config()
 
 const dbConnection = require('./database/db.connection')
 
