@@ -5,15 +5,17 @@ const AuthMiddleware = require('../auth/middlewares/auth.middleware');
 const IsUserUpdatedMiddleware = require('../auth/middlewares/is-user-updated.middleware');
 const ROLE = require('../utils/constants/role');
 const ParseMongoIdPipe = require('../utils/pipes/parse-mongo-id.pipe');
+const CreateOfferingDto = require('./dto/create-offering.dto');
+const UpdateOfferingDto = require('./dto/update-offering.dto');
 const {
-  findAll,
   create,
+  findAll,
   findOne,
-  remove,
   update,
-} = require('./categories.controller');
-const CreateCategoryDto = require('./dto/create-category.dto');
-const UpdateCategoryDto = require('./dto/update-category.dto');
+  remove,
+} = require('./offering.controller');
+
+router.use('/', require('../reviews/reviews.router'));
 
 router
   .route('/')
@@ -22,19 +24,18 @@ router
     AuthMiddleware,
     IsUserUpdatedMiddleware,
     RoleGuard([ROLE.ADMIN]),
-    CreateCategoryDto,
+    CreateOfferingDto,
     create,
   );
 
-router.get('/:slug', findOne);
-
 router
-  .route(':id')
+  .route('/:id')
+  .get(ParseMongoIdPipe, findOne)
   .patch(
     AuthMiddleware,
     IsUserUpdatedMiddleware,
     RoleGuard([ROLE.ADMIN]),
-    UpdateCategoryDto,
+    UpdateOfferingDto,
     update,
   )
   .delete(
