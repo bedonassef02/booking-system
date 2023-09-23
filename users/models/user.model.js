@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const ROLE = require("../../utils/constants/role");
 
 const userSchema = new mongoose.Schema(
     {
@@ -17,6 +18,10 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        role: {
+            type: String,
+            default: ROLE.USER,
+        }
     },
     {
         timestamps: true, // This option should be inside the schema configuration object
