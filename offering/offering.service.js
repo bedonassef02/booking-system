@@ -2,8 +2,27 @@ const NotFoundException = require('../utils/exceptions/not-found.exception');
 const paginationDetails = require('../utils/helpers/pagination/pagination-details');
 const Offering = require('./models/offering.model');
 
-exports.create = async (offering) => {
-  return await Offering.create({ ...offering });
+exports.create = async ({
+  name,
+  description,
+  price,
+  location,
+  capacity,
+  images,
+  facilities,
+  days,
+}) => {
+  const offering = await Offering.create({
+    name,
+    description,
+    price,
+    location,
+    capacity,
+    images,
+    facilities,
+    days,
+  });
+  return offering;
 };
 
 const countDocuments = async ({ filter }) => {

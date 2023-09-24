@@ -2,8 +2,26 @@ const offeringService = require('./offering.service');
 const asyncHandler = require('express-async-handler');
 
 exports.create = asyncHandler(async (req, res) => {
-  const offering = req.body;
-  const offer = await offeringService.create(offering);
+  const {
+    name,
+    description,
+    price,
+    location,
+    capacity,
+    images,
+    facilities,
+    days,
+  } = req.body;
+  const offer = await offeringService.create({
+    name,
+    description,
+    price,
+    location,
+    capacity,
+    images,
+    facilities,
+    days,
+  });
   res.status(201).json({ offer });
 });
 
