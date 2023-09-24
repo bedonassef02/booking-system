@@ -15,6 +15,7 @@ const {
   remove,
 } = require('./offering.controller');
 const QueryDto = require('../utils/dto/query.dto');
+const upload = require('../utils/helpers/multer/multer');
 router.use('/', require('../reviews/reviews.router'));
 
 router
@@ -23,7 +24,8 @@ router
   .post(
     AuthMiddleware,
     IsUserUpdatedMiddleware,
-    RoleGuard([ROLE.ADMIN]),
+    // RoleGuard([ROLE.ADMIN]),
+    upload.array('images', 32),
     CreateOfferingDto,
     create,
   );

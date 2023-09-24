@@ -3,6 +3,7 @@ const validationExceptionFilter = require('../../utils/filters/validation-except
 const whitelist = require('../../utils/pipes/whitelist.pipe');
 const categoryService = require('../../categories/categories.service');
 const NotFoundException = require('../../utils/exceptions/not-found.exception');
+const images = require('../utils/helpers/upload-images');
 
 const allowedFields = [
   'name',
@@ -16,6 +17,9 @@ const allowedFields = [
 ];
 
 const CreateOfferingDto = [
+
+  images,
+
   body('name')
     .notEmpty()
     .withMessage('name is required')

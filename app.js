@@ -5,7 +5,6 @@ const passport = require('passport');
 const session = require('express-session');
 const globalExceptionFilter = require('./utils/filters/global-exception.filter');
 const NotFoundException = require('./utils/exceptions/not-found.exception');
-
 const app = express();
 
 app.use(session({
@@ -21,9 +20,13 @@ dotenv.config()
 app.use(morgan('dev'));
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+// app.use(express.static(__dirname, 'public'));
 
 // Define your routes and middleware here
 app.use('/auth', require('./auth/auth.router'))
