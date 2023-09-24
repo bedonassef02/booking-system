@@ -24,7 +24,6 @@ exports.register = async ({ name, email, password }) => {
   return plainIntoUserResponse(user);
 };
 
-
 exports.findOrCreate = async ({ profile }) => {
   const { email, name, sub } = profile._json;
   const provider = 'google';
@@ -36,11 +35,10 @@ exports.findOrCreate = async ({ profile }) => {
     name,
     email,
     provider,
-    providerId: sub
+    providerId: sub,
   });
   return plainIntoUserResponse(newUser);
-}
-
+};
 
 const plainIntoUserResponse = (user) => {
   return {

@@ -15,6 +15,7 @@ const QueryDto = require('../utils/dto/query.dto');
 const ParseMongoIdPipe = require('../utils/pipes/parse-mongo-id.pipe');
 const UpdateBookingStatusDto = require('./dto/update-booking-status.dto');
 const PaymentGuard = require('./guards/payment.guard');
+const NotificationsMiddleware = require('../notifications/middlewares/notifications.middleware');
 
 router.post(
   '/',
@@ -42,6 +43,7 @@ router.patch(
   RolesGuard(ROLE.ADMIN),
   UpdateBookingStatusDto,
   ParseMongoIdPipe,
+  NotificationsMiddleware,
   updateStatus,
 );
 

@@ -13,4 +13,3 @@ exports.register = asyncHandler(async (request, response) => {
   const user = await authService.register({ name, email, password });
   response.status(STATUS_CODE.CREATED).json(user);
 });
-

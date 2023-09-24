@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema(
     },
     providerId: {
       type: String,
-    }
+    },
   },
   {
     timestamps: true, // This option should be inside the schema configuration object

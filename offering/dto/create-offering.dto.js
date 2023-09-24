@@ -17,7 +17,6 @@ const allowedFields = [
 ];
 
 const CreateOfferingDto = [
-
   images,
 
   body('name')
