@@ -16,12 +16,18 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+      // required: true,
     },
     role: {
       type: String,
       default: ROLE.USER,
     },
+    provider: {
+      type: String,
+    },
+    providerId: {
+      type: String,
+    }
   },
   {
     timestamps: true, // This option should be inside the schema configuration object

@@ -4,6 +4,10 @@ exports.findOne = async ({ email }) => {
   return await User.findOne({ email });
 };
 
-exports.create = async ({ name, email, password }) => {
-  return await User.create({ name, email, password });
+exports.create = async ({ name, email, password, provider, providerId }) => {
+  return await User.create({ name, email, password, provider, providerId });
+};
+
+exports.findById = async ({ id }) => {
+  return await User.findById(id);
 };
