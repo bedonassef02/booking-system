@@ -6,14 +6,6 @@ const keyword = require('../helpers/dto/keyword');
 const page = require('../helpers/dto/page');
 const limit = require('../helpers/dto/limit');
 
-const QueryDto = [
-    page,
-    limit,
-    skip,
-    sort,
-    fields,
-    filter,
-    keyword,
-]
+const QueryDto = [page, limit, skip, sort, fields, filter, keyword];
 
 module.exports = QueryDto;

@@ -14,12 +14,12 @@ const {
   update,
   remove,
 } = require('./offering.controller');
-
+const QueryDto = require('../utils/dto/query.dto');
 router.use('/', require('../reviews/reviews.router'));
 
 router
   .route('/')
-  .get(findAll)
+  .get(QueryDto, findAll)
   .post(
     AuthMiddleware,
     IsUserUpdatedMiddleware,

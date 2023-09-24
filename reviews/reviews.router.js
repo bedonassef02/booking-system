@@ -10,30 +10,30 @@ const UpdateReviewDto = require('./dto/update-review.dto');
 const IsSameUserGuard = require('./guards/is-same-user.guard');
 
 router.post(
-    '/:offerId/reviews',
-    AuthMiddleware,
-    IsUserUpdatedMiddleware,
-    RolesGuard([ROLE.USER]),
-    CreateReviewDto,
-    create,
+  '/:offerId/reviews',
+  AuthMiddleware,
+  IsUserUpdatedMiddleware,
+  RolesGuard([ROLE.USER]),
+  CreateReviewDto,
+  create,
 );
 router.get('/:offerId/reviews', findAll);
 router.patch(
-    '/:offerId/reviews/:id',
-    AuthMiddleware,
-    IsUserUpdatedMiddleware,
-    RolesGuard([ROLE.USER]),
-    UpdateReviewDto,
-    IsSameUserGuard,
-    update,
+  '/:offerId/reviews/:id',
+  AuthMiddleware,
+  IsUserUpdatedMiddleware,
+  RolesGuard([ROLE.USER]),
+  UpdateReviewDto,
+  IsSameUserGuard,
+  update,
 );
 router.delete(
-    '/:offerId/reviews/:id',
-    AuthMiddleware,
-    IsUserUpdatedMiddleware,
-    RolesGuard([ROLE.USER]),
-    IsSameUserGuard,
-    remove,
+  '/:offerId/reviews/:id',
+  AuthMiddleware,
+  IsUserUpdatedMiddleware,
+  RolesGuard([ROLE.USER]),
+  IsSameUserGuard,
+  remove,
 );
 
 module.exports = router;
