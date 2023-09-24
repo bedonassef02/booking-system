@@ -28,6 +28,10 @@ app.use(passport.session());
 
 // app.use(express.static(__dirname, 'public'));
 
+app.get('/', (req, res) => {
+    res.send(200).json({ message: 'Index' })
+})
+
 // Define your routes and middleware here
 app.use('/auth', require('./auth/auth.router'))
 app.use('/categories', require('./categories/categories.router'));
