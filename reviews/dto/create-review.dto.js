@@ -8,9 +8,9 @@ const whitelist = require('../../utils/pipes/whitelist.pipe');
 const allowedFields = ['rate', 'description'];
 
 const CreateReviewDto = [
-
   param('offerId')
-    .isMongoId().withMessage('id must be valid mongo id')
+    .isMongoId()
+    .withMessage('id must be valid mongo id')
     .custom(async (offerId) => {
       const offer = await offeringService.findOne({ id: offerId });
       if (!offer) {

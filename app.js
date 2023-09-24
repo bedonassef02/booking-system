@@ -17,6 +17,7 @@ app.use(express.json());
 app.use('/auth', require('./auth/auth.router'))
 app.use('/categories', require('./categories/categories.router'));
 app.use('/offering', require('./offering/offering.router'));
+app.use('/booking', require('./booking/booking.router'));
 
 app.use(globalExceptionFilter);
 
