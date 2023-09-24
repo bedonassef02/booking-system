@@ -11,6 +11,7 @@ exports.create = asyncHandler(async (req, res) => {
     images,
     facilities,
     days,
+    category,
   } = req.body;
   const offer = await offeringService.create({
     name,
@@ -21,6 +22,7 @@ exports.create = asyncHandler(async (req, res) => {
     images,
     facilities,
     days,
+    category,
   });
   res.status(201).json({ offer });
 });

@@ -2,6 +2,7 @@ const Booking = require('./models/booking.model');
 const offeringService = require('../offering/offering.service');
 const NotFoundException = require('../utils/exceptions/not-found.exception');
 const paginationDetails = require('../utils/helpers/pagination/pagination-details');
+const PAYMENT = require('./utils/constants/payment');
 
 exports.create = async ({ user, offering, time, duration, details }) => {
   const offer = await offeringService.findOne({ id: offering });
@@ -47,3 +48,15 @@ exports.findOne = async ({ id, user }) => {
 
 // TODO: implement this method
 exports.update = async ({ id, user }) => {};
+
+exports.updateStatus = async ({ id, status }) => {
+  return Booking.findByIdAndUpdate(id, { status }, { new: true });
+};
+
+exports.updatePayment = async ({ id }) => {
+  return Booking.findByIdAndUpdate(
+    id,
+    { payment: PAYMENT.COMPLETED },
+    { new: true },
+  );
+};

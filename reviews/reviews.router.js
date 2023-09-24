@@ -8,6 +8,7 @@ const CreateReviewDto = require('./dto/create-review.dto');
 const ROLE = require('../utils/constants/role');
 const UpdateReviewDto = require('./dto/update-review.dto');
 const IsSameUserGuard = require('./guards/is-same-user.guard');
+const { getRating } = require('./reviews.controller');
 
 router.post(
   '/:offerId/reviews',
@@ -17,7 +18,11 @@ router.post(
   CreateReviewDto,
   create,
 );
+
 router.get('/:offerId/reviews', findAll);
+
+router.get('/:offerId/rating', getRating);
+
 router.patch(
   '/:offerId/reviews/:id',
   AuthMiddleware,

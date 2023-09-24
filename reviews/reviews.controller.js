@@ -32,3 +32,9 @@ exports.remove = asyncHandler(async (req, res) => {
   await reviewsService.remove({ id });
   res.status(200).json({ message: 'review deleted successfully' });
 });
+
+exports.getRating = asyncHandler(async (req, res) => {
+  const { offerId } = req.params;
+  const rating = await reviewsService.getRating({ offering: offerId });
+  res.status(200).json({ rating });
+});

@@ -11,6 +11,7 @@ exports.create = async ({
   images,
   facilities,
   days,
+  category,
 }) => {
   const offering = await Offering.create({
     name,
@@ -21,6 +22,7 @@ exports.create = async ({
     images,
     facilities,
     days,
+    category,
   });
   return offering;
 };

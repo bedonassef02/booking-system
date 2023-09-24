@@ -1,6 +1,8 @@
 const { body } = require('express-validator');
 const validationExceptionFilter = require('../../utils/filters/validation-exception.filter');
 const whitelist = require('../../utils/pipes/whitelist.pipe');
+const categoryService = require('../../categories/categories.service');
+const NotFoundException = require('../../utils/exceptions/not-found.exception');
 
 const allowedFields = [
   'name',
@@ -96,6 +98,18 @@ const CreateOfferingDto = [
       return true;
     }),
 
+  body('category')
+    .notEmpty()
+    .withMessage('category is required')
+    .isMongoId()
+    .withMessage('category must be a valid Mongo ID')
+    .custom(async (id) => {
+      const category = await categoryService.findById({ id });
+      if (category) {
+        return true;
+      }
+      throw new NotFoundException('category not found');
+    }),
   validationExceptionFilter,
 
   whitelist(allowedFields),

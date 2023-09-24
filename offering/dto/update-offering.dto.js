@@ -93,6 +93,18 @@ const UpdateOfferingDto = [
       return true;
     }),
 
+  body('category')
+    .optional()
+    .isMongoId()
+    .withMessage('category must be a valid Mongo ID')
+    .custom(async (id) => {
+      const category = await categoryService.findById({ id });
+      if (category) {
+        return true;
+      }
+      throw new NotFoundException('category not found');
+    }),
+
   validationExceptionFilter,
 
   whitelist(allowedFields),

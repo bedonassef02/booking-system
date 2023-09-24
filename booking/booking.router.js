@@ -1,5 +1,11 @@
 const router = require('express').Router();
-const { create, findAll, findOne } = require('./booking.controller');
+const {
+  create,
+  findAll,
+  findOne,
+  updateStatus,
+  updatePayment,
+} = require('./booking.controller');
 const AuthMiddleware = require('../auth/middlewares/auth.middleware');
 const IsUserUpdatedMiddleware = require('../auth/middlewares/is-user-updated.middleware');
 const RolesGuard = require('../auth/guards/roles.guard');
@@ -7,6 +13,8 @@ const ROLE = require('../utils/constants/role');
 const CreateBookingDto = require('./dto/create-booking.dto');
 const QueryDto = require('../utils/dto/query.dto');
 const ParseMongoIdPipe = require('../utils/pipes/parse-mongo-id.pipe');
+const UpdateBookingStatusDto = require('./dto/update-booking-status.dto');
+const PaymentGuard = require('./guards/payment.guard');
 
 router.post(
   '/',
@@ -25,6 +33,26 @@ router.get(
   IsUserUpdatedMiddleware,
   ParseMongoIdPipe,
   findOne,
+);
+
+router.patch(
+  '/:id/status',
+  AuthMiddleware,
+  IsUserUpdatedMiddleware,
+  RolesGuard(ROLE.ADMIN),
+  UpdateBookingStatusDto,
+  ParseMongoIdPipe,
+  updateStatus,
+);
+
+router.post(
+  '/:id/payment',
+  AuthMiddleware,
+  IsUserUpdatedMiddleware,
+  RolesGuard(ROLE.USER),
+  PaymentGuard,
+  ParseMongoIdPipe,
+  updatePayment,
 );
 
 module.exports = router;

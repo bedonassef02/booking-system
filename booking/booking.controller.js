@@ -27,3 +27,16 @@ exports.findOne = asyncHandler(async (req, res) => {
   const booking = await bookingService.findOne({ id, user: user.id });
   res.status(200).send({ booking });
 });
+
+exports.updateStatus = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  const booking = await bookingService.updateStatus({ id, status });
+  res.status(200).send({ booking });
+});
+
+exports.updatePayment = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const booking = await bookingService.updatePayment({ id });
+  res.status(200).send({ booking });
+});

@@ -12,6 +12,10 @@ exports.findOne = async ({ slug }) => {
   return await Category.findOne({ slug });
 };
 
+exports.findById = async ({ id }) => {
+  return await Category.findById(id);
+};
+
 exports.remove = async ({ id }) => {
   await Category.findByIdAndRemove(id);
 };

@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Review = require('./models/review.model');
 
 exports.create = async ({ user, offering, rate, description }) => {
@@ -23,4 +24,19 @@ exports.update = async ({ id, rate, description }) => {
 
 exports.remove = async ({ id }) => {
   await Review.findByIdAndRemove(id);
+};
+
+exports.getRating = async ({ offering }) => {
+  const result = await Review.aggregate([
+    {
+      $match: { offering: new mongoose.Types.ObjectId(offering) }, // Match reviews for the specific offering
+    },
+    {
+      $group: {
+        _id: null,
+        averageRating: { $avg: '$rate' }, // Calculate the average rating
+      },
+    },
+  ]);
+  return result[0].averageRating;
 };
