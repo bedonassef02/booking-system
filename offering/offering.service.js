@@ -1,4 +1,5 @@
 const NotFoundException = require('../utils/exceptions/not-found.exception');
+const emailsEvent = require('../utils/helpers/events/emails.events');
 const paginationDetails = require('../utils/helpers/pagination/pagination-details');
 const Offering = require('./models/offering.model');
 
@@ -24,6 +25,7 @@ exports.create = async ({
     days,
     category,
   });
+  emailsEvent.emit('offering.create', { name });
   return offering;
 };
 

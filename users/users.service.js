@@ -1,3 +1,4 @@
+const ROLE = require('../utils/constants/role');
 const User = require('./models/user.model');
 
 exports.findOne = async ({ email }) => {
@@ -14,4 +15,8 @@ exports.findById = async ({ id }) => {
 
 exports.updatePassword = async ({ id, password }) => {
   return await User.findByIdAndUpdate(id, { password }, { new: true });
+};
+
+exports.findAll = async () => {
+  return await User.find({ role: ROLE.USER }).select('email');
 };

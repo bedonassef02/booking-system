@@ -18,14 +18,17 @@ const QueryDto = require('../utils/dto/query.dto');
 const upload = require('../utils/helpers/multer/multer');
 router.use('/', require('../reviews/reviews.router'));
 
-router.route('/').get(QueryDto, findAll).post(
-  AuthMiddleware,
-  IsUserUpdatedMiddleware,
-  // RoleGuard([ROLE.ADMIN]),
-  upload.array('images', 32),
-  CreateOfferingDto,
-  create,
-);
+router
+  .route('/')
+  .get(QueryDto, findAll)
+  .post(
+    AuthMiddleware,
+    IsUserUpdatedMiddleware,
+    RoleGuard([ROLE.ADMIN]),
+    upload.array('images', 32),
+    CreateOfferingDto,
+    create,
+  );
 
 router
   .route('/:id')
