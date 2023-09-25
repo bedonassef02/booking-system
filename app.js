@@ -9,7 +9,8 @@ const path = require('node:path');
 const STATUS_CODE = require('./utils/constants/status-code');
 const limiter = require('./utils/helpers/app/limiter');
 const { default: helmet } = require('helmet');
-require('./emails/emails')
+const winstonLogger = require('./utils/helpers/logger/winston.logger');
+require('./emails/emails');
 
 const app = express();
 
@@ -19,6 +20,9 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
 }));
+
+
+app.use(winstonLogger)
 
 const ENV = process.env.NODE_ENV !== 'production' ? 'dev' : 'combined';
 
@@ -41,6 +45,8 @@ app.get('/', (req, res) => {
     res.status(STATUS_CODE.OK).json({ message: 'Index' });
 });
 
+// TODO: implement payment
+// TODO: implement whishlist
 
 // Define your routes and middleware here
 app.use('/auth', require('./auth/auth.router'))

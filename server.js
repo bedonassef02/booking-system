@@ -1,6 +1,6 @@
 const app = require('./app')
 
-const dbConnection = require('./database/db.connection')
+const { dbConnection } = require('./database/db.connection')
 
 
 const port = process.env.PORT || 3000;

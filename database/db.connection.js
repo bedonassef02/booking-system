@@ -12,4 +12,4 @@ const DATABASE_URI = process.env.DATABASE_URI.replace(
 
 const dbConnection = mongoose.connect(DATABASE_URI);
 
-module.exports = dbConnection;
+module.exports = { dbConnection, DATABASE_URI };
