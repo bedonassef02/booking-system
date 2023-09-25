@@ -11,3 +11,7 @@ exports.create = async ({ name, email, password, provider, providerId }) => {
 exports.findById = async ({ id }) => {
   return await User.findById(id);
 };
+
+exports.updatePassword = async ({ id, password }) => {
+  return await User.findByIdAndUpdate(id, { password }, { new: true });
+};

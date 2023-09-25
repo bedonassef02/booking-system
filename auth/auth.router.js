@@ -1,29 +1,23 @@
 const router = require('express').Router();
-const passport = require('passport');
 require('./strategies/google.strategy');
-
-const { login, register } = require('./auth.controller');
+const AuthMiddleware = require('./middlewares/auth.middleware');
+const IsUserUpdatedMiddleware = require('./middlewares/is-user-updated.middleware');
+const { login, register, updatePassword } = require('./auth.controller');
 const LoginDto = require('./dto/login.dto');
 const RegisterDto = require('./dto/register.dto');
+const UpdatePasswordDto = require('./dto/update-password.dto');
 
 router.post('/login', LoginDto, login);
 router.post('/register', RegisterDto, register);
 
-router.get(
-  '/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] }),
-);
+router.use('/google', require('./google.router'));
 
-router.get('/google/success', (req, res) => {
-  res.send({ message: 'success' });
-});
-
-router.get(
-  '/google/redirect',
-  passport.authenticate('google', {
-    successRedirect: '/auth/google/success',
-    failureRedirect: '/auth/google/failure',
-  }),
+router.patch(
+  '/password',
+  AuthMiddleware,
+  IsUserUpdatedMiddleware,
+  UpdatePasswordDto,
+  updatePassword,
 );
 
 module.exports = router;

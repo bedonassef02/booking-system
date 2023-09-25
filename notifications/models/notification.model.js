@@ -15,6 +15,10 @@ const notificationSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
+    seen: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

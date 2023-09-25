@@ -13,3 +13,14 @@ exports.register = asyncHandler(async (request, response) => {
   const user = await authService.register({ name, email, password });
   response.status(STATUS_CODE.CREATED).json(user);
 });
+
+exports.updatePassword = asyncHandler(async (request, response) => {
+  const { id } = request.user;
+  const { newPassword, currentPassword } = request.body;
+  const user = await authService.updatePassword({
+    id,
+    newPassword,
+    currentPassword,
+  });
+  response.status(STATUS_CODE.CREATED).json(user);
+});

@@ -1,33 +1,39 @@
 const express = require('express');
 const morgan = require('morgan');
-const dotenv = require('dotenv');
+require('dotenv').config();
 const passport = require('passport');
 const session = require('express-session');
 const globalExceptionFilter = require('./utils/filters/global-exception.filter');
 const NotFoundException = require('./utils/exceptions/not-found.exception');
 const path = require('node:path');
 const STATUS_CODE = require('./utils/constants/status-code');
+const limiter = require('./utils/helpers/app/limiter');
+const { default: helmet } = require('helmet');
+require('./emails/emails')
 
 const app = express();
 
+
 app.use(session({
-    secret: 'your-secret-key', // Replace with a secret key for session encryption
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
 }));
 
+const ENV = process.env.NODE_ENV !== 'production' ? 'dev' : 'combined';
 
-
-dotenv.config()
-
-app.use(morgan('dev'));
+app.use(morgan(ENV));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(limiter);
+app.use(helmet());
+
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 

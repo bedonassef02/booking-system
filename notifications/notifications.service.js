@@ -8,10 +8,20 @@ notificationsEvent.on(
   },
 );
 
+const markAsSeen = async ({ user }) => {
+  await Notification.updateMany({ user }, { seen: true });
+};
+
 const create = async ({ title, message, user }) => {
   await Notification.create({ title, message, user });
 };
 
 exports.findAll = async ({ user }) => {
-  return await Notification.find({ user });
+  const notifications = await Notification.find({ user });
+  await markAsSeen({ user });
+  return notifications;
+};
+
+exports.remove = async ({ id, user }) => {
+  await Notification.findOneAndRemove({ id, user });
 };
