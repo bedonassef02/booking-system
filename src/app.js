@@ -57,6 +57,7 @@ app.use('/offering', require('./offering/offering.router'));
 app.use('/booking', require('./booking/booking.router'));
 app.use('/notifications', require('./notifications/notifications.router'));
 app.use('/payment', require('./payment/payment.router'));
+app.use('/wishlist', require('./wishlist/wishlist.router'));
 
 app.all('*', (req, res) => {
   const path = req.path;

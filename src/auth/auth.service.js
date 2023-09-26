@@ -4,6 +4,7 @@ const BadRequestException = require('../utils/exceptions/bad-request.exception')
 const passwordService = require('./services/password.service');
 const { sign } = require('./services/tokern.service');
 const emailsEvent = require('../utils/helpers/events/emails.events');
+const wishlistEvent = require('../utils/helpers/events/wishlist.events');
 
 exports.login = async ({ email, password }) => {
   const user = await usersService.findOne({ email });
@@ -27,6 +28,7 @@ exports.register = async ({ name, email, password }) => {
     password: hashedPassword,
   });
   emailsEvent.emit('register', { email });
+  wishlistEvent.emit('wishlist.create', { user: user.id });
   return plainIntoUserResponse(user);
 };
 
