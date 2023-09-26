@@ -1,4 +1,6 @@
 const nodemailer = require('nodemailer');
+const CustomLogger = require('../../utils/helpers/logger/custom.logger');
+const logger = new CustomLogger('SEND_EMAIL');
 
 const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
 
@@ -13,9 +15,9 @@ const transporter = nodemailer.createTransport({
 const sendEmail = (mailOptions) => {
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      console.log(error);
+      logger.error(error);
     } else {
-      console.log('Email sent: ' + info.response);
+      logger.info('Email sent: ' + info.response);
     }
   });
 };

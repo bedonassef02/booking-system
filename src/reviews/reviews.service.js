@@ -10,7 +10,6 @@ exports.findAll = async ({ offering }) => {
 };
 
 exports.findOne = async ({ id }) => {
-  console.log(id);
   return await Review.findById(id);
 };
 

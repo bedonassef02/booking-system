@@ -2,6 +2,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const authService = require('../auth.service');
 const usersService = require('../../users/users.service');
+const asyncHandler = require('express-async-handler');
 
 passport.use(
   new GoogleStrategy(
@@ -11,14 +12,10 @@ passport.use(
       callbackURL: process.env.GOOGLE_REDIRECT_URL,
       passReqToCallback: true,
     },
-    async (request, accessToken, refreshToken, profile, done) => {
-      try {
-        const user = await authService.findOrCreate({ profile });
-        return done(null, user);
-      } catch (err) {
-        return done(err);
-      }
-    },
+    asyncHandler(async (request, accessToken, refreshToken, profile, done) => {
+      const user = await authService.findOrCreate({ profile });
+      return done(null, user);
+    }),
   ),
 );
 
@@ -26,11 +23,9 @@ passport.serializeUser((res, done) => {
   done(null, res.user.id);
 });
 
-passport.deserializeUser(async (id, done) => {
-  try {
+passport.deserializeUser(
+  asyncHandler(async (id, done) => {
     const user = await usersService.findById(id); // Replace with your function to retrieve user by ID
     done(null, user);
-  } catch (err) {
-    done(err);
-  }
-});
+  }),
+);

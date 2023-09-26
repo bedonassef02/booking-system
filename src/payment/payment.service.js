@@ -29,7 +29,6 @@ const createPaymentSession = async ({ id, user }) => {
 
 const createStripePaymentSession = async ({ name, price, days, booking }) => {
   try {
-    console.log(booking);
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',

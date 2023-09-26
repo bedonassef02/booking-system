@@ -1,16 +1,18 @@
 const app = require('./app');
 
 const { dbConnection } = require('./database/db.connection');
+const CustomLogger = require('./utils/helpers/logger/custom.logger');
 
 const port = process.env.PORT || 3000;
+const logger = new CustomLogger('SERVER');
 
 dbConnection
   .then(
-    console.log('connecting to database successfully'),
+    logger.info('connecting to database successfully'),
     app.listen(port, () => {
-      console.log('listening on port ' + port);
+      logger.info('listening on port ' + port);
     }),
   )
   .catch((err) => {
-    console.error('db connection error: ' + err);
+    logger.error('db connection error: ' + err);
   });

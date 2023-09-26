@@ -7,6 +7,8 @@ const LoginDto = require('./dto/login.dto');
 const RegisterDto = require('./dto/register.dto');
 const UpdatePasswordDto = require('./dto/update-password.dto');
 
+// TODO: implement reset password
+
 router.post('/login', LoginDto, login);
 router.post('/register', RegisterDto, register);
 

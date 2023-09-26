@@ -24,3 +24,8 @@ exports.updatePassword = asyncHandler(async (request, response) => {
   });
   response.status(STATUS_CODE.CREATED).json(user);
 });
+
+// TODO: implement this method
+exports.resetPassword = asyncHandler(async (request, response) => {
+  const { email } = request.body;
+});

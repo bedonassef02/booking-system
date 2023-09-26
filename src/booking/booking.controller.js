@@ -35,9 +35,3 @@ exports.updateStatus = asyncHandler(async (req, res) => {
   const booking = await bookingService.updateStatus({ id, status });
   res.status(STATUS_CODE.OK).send({ booking });
 });
-
-exports.updatePayment = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  const booking = await bookingService.updatePayment({ id });
-  res.status(STATUS_CODE.OK).send({ booking });
-});

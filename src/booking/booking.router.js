@@ -47,14 +47,4 @@ router.patch(
   updateStatus,
 );
 
-router.post(
-  '/:id/payment',
-  AuthMiddleware,
-  IsUserUpdatedMiddleware,
-  RolesGuard(ROLE.USER),
-  PaymentGuard,
-  ParseMongoIdPipe,
-  updatePayment,
-);
-
 module.exports = router;

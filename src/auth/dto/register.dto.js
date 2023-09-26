@@ -23,7 +23,6 @@ const RegisterDto = [
     .isLength({ max: 32 })
     .withMessage('Email should be less than or equal to 32 characters')
     .custom(async (email) => {
-      console.log(email);
       const isEmailExist = await usersService.findOne({ email });
       if (isEmailExist) {
         throw new ConflictException('Email is already in use');
