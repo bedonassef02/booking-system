@@ -1,5 +1,3 @@
 const asyncHandler = require('express-async-handler');
 
-exports.findAll = asyncHandler(async (req, res) => {
-
-});
+exports.findAll = asyncHandler(async (req, res) => {});

@@ -53,10 +53,10 @@ exports.updateStatus = async ({ id, status }) => {
   return Booking.findByIdAndUpdate(id, { status }, { new: true });
 };
 
-exports.updatePayment = async ({ id }) => {
+exports.updatePayment = async ({ id, payment }) => {
   return Booking.findByIdAndUpdate(
     id,
-    { payment: PAYMENT.COMPLETED },
+    { payment: payment || PAYMENT.COMPLETED },
     { new: true },
   );
 };

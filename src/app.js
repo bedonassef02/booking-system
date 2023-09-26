@@ -15,12 +15,13 @@ require('./emails/emails');
 
 const app = express();
 
-app.use(session({
+app.use(
+  session({
     secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
-}));
-
+  }),
+);
 
 app.use(winstonLogger);
 
@@ -37,23 +38,20 @@ app.use(passport.session());
 app.use(limiter);
 app.use(helmet());
 
-
-
 app.use(cors());
 
-
-
-app.use(express.static(path.join(__dirname, 'public')));
+const parentDir = path.resolve(__dirname, '..');
+app.use(express.static(path.join(parentDir, 'public')));
 
 app.get('/', (req, res) => {
-    res.status(STATUS_CODE.OK).json({ message: 'Index' });
+  res.status(STATUS_CODE.OK).json({ message: 'Index' });
 });
 
 // TODO: implement payment
 // TODO: implement whishlist
 
 // Define your routes and middleware here
-app.use('/auth', require('./auth/auth.router'))
+app.use('/auth', require('./auth/auth.router'));
 app.use('/categories', require('./categories/categories.router'));
 app.use('/offering', require('./offering/offering.router'));
 app.use('/booking', require('./booking/booking.router'));
@@ -61,9 +59,9 @@ app.use('/notifications', require('./notifications/notifications.router'));
 app.use('/payment', require('./payment/payment.router'));
 
 app.all('*', (req, res) => {
-    const path = req.path;
-    throw new NotFoundException(`Not found ${path}`);
-})
+  const path = req.path;
+  throw new NotFoundException(`Not found ${path}`);
+});
 
 app.use(globalExceptionFilter);
 
