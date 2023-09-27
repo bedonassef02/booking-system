@@ -4,7 +4,6 @@ const {
   findAll,
   findOne,
   updateStatus,
-  updatePayment,
 } = require('./booking.controller');
 const AuthMiddleware = require('../auth/middlewares/auth.middleware');
 const IsUserUpdatedMiddleware = require('../auth/middlewares/is-user-updated.middleware');
@@ -14,7 +13,6 @@ const CreateBookingDto = require('./dto/create-booking.dto');
 const QueryDto = require('../utils/dto/query.dto');
 const ParseMongoIdPipe = require('../utils/pipes/parse-mongo-id.pipe');
 const UpdateBookingStatusDto = require('./dto/update-booking-status.dto');
-const PaymentGuard = require('./guards/payment.guard');
 const NotificationsMiddleware = require('../notifications/middlewares/notifications.middleware');
 
 router.post(
