@@ -89,7 +89,7 @@ For detailed information on offering-related endpoints, please refer to the [Off
 
 The Booking section allows users to create bookings, view their bookings, and manage booking status. It also includes payment processing through Stripe.
 
-For detailed information on booking-related endpoints, please refer to the [Booking Documentation](./booking.router.md).
+For detailed information on booking-related endpoints, please refer to the [Booking Documentation](./booking.md).
 
 ---
 
